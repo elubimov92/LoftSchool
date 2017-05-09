@@ -27,8 +27,11 @@ function defaultParameterValue(a, b = 100) {
  Количество переданных аргументов заранее неизвестно
  */
 function returnArgumentsArray(arr = []) {
-    return arr;
-    
+        var array = [];
+        for(var i=0; i<arguments.length; i++){
+            array[array.length] = arguments[i];
+        }
+        return array;
 }
 
 /*
@@ -61,8 +64,12 @@ function returnCounter(number = 0) {
  Функция должна привязать переданные аргументы к функции F и вернуть получившуюся функцию
  */
 function bindFunction(fn) {
+    return F;
 }
-
+function F (a, b) {
+}
+var f = F.bind(null, 1, 2);
+bindFunction(f());
 export {
     returnFirstArgument,
     defaultParameterValue,
