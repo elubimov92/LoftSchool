@@ -27,11 +27,11 @@ function defaultParameterValue(a, b = 100) {
  Количество переданных аргументов заранее неизвестно
  */
 function returnArgumentsArray(arr = []) {
-    var array = [];
+    var arr = [];
     for (var i = 0; i < arguments.length; i++) {
-        array[array.length] = arguments[i];
+        arr.push(arguments[i]);
     }
-    return array;
+    return arr;
 }
 
 /*
