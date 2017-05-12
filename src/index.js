@@ -64,14 +64,13 @@ function returnCounter(number = 0) {
  Функция должна привязать переданные аргументы к функции F и вернуть получившуюся функцию
  */
 function bindFunction(fn) {
-
+  var args = Array.prototype.slice.call(arguments, 1);
+  console.log(args);
+  var F = function () {
+    return fn.apply(this, args);
+  };
+  return F;
 }
-
-function F () {
-}
-
-bindFunction(F());
-var f = F.bind(null, 1, 2, 3,);
 export {
     returnFirstArgument,
     defaultParameterValue,
