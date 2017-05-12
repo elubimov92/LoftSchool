@@ -59,7 +59,6 @@ function isSomeTrue(array, fn) {
  - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
-  //debugger;
   var arr = [],
     er = [];
   if ((typeof fn) != "function") {
@@ -147,6 +146,7 @@ function calculator(number = 0) {
     mul: mulFunc
   }
 }
+
 
 export {
   isAllTrue,
