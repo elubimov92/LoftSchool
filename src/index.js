@@ -59,7 +59,7 @@ function isSomeTrue(array, fn) {
  - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
-  debugger;
+  //debugger;
   var arr = [],
     er = [];
   if ((typeof fn) != "function") {
@@ -94,7 +94,58 @@ function returnBadArguments(fn) {
  - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
 function calculator(number = 0) {
+  var
+    m1 = 'number is not a number',
+    m2 = 'division by 0';
+  if (isNaN(number)) {
+    throw new Error(m1);
+  }
+  function sumFunc() {
+    debugger;
+    var result = number;
+    for (var i = 0; i < arguments.length; i++) {
+      result = result + arguments[i];
+    }
+    return result;
+  }
 
+  function difFunc() {
+    var result = number;
+    for (var i = 0; arguments.length > i; i++) {
+      result = result - arguments[i];
+    }
+    return result;
+  }
+
+  function divFunc() {
+    var result = number;
+    if (number === 0) {
+      throw new Error(m2);
+    }
+    for (var i = 0; arguments.length > i; i++) {
+      if (arguments[i] === 0) {
+        throw new Error(m2);
+      }
+      result = result / arguments[i];
+    }
+    return result;
+  }
+
+  function mulFunc() {
+    var result = number;
+    for (var i = 0; arguments.length > i; i++) {
+      result = result * arguments[i];
+    }
+    return result;
+  }
+
+  debugger;
+  return {
+    sum: sumFunc,
+    dif: difFunc,
+    div: divFunc,
+    mul: mulFunc
+  }
 }
 
 export {
