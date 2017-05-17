@@ -12,13 +12,11 @@
 var m1 = 'empty array',
   m2 = 'fn is not a function';
 
-
 function isAllTrue(array, fn) {
-  var arr = array.length;
-  //debugger;
-  if (arr === 0) {
+  if (Array.isArray(array) == false || array.length == 0) {
     throw new Error(m1);
-  } else if ((typeof fn) != "function") {
+  }
+  else if ((typeof fn) != "function") {
     throw new Error(m2);
   }
   for (var i = 0; array.length > i; i++) {
@@ -26,6 +24,7 @@ function isAllTrue(array, fn) {
   }
   return true;
 }
+
 
 /*
  Задача 2:
@@ -37,18 +36,18 @@ function isAllTrue(array, fn) {
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isSomeTrue(array, fn) {
-  var arr = array.length;
-  //debugger;
-  if (arr === 0) {
+  if (Array.isArray(array) == false || array.length == 0) {
     throw new Error(m1);
-  } else if ((typeof fn) != "function") {
+  }
+  else if ((typeof fn) != "function") {
     throw new Error(m2);
   }
   for (var i = 0; array.length > i; i++) {
-    if (fn(array[i]) == false) return true;
+    if (fn(array[i]) == true) return true;
   }
   return false;
 }
+
 
 /*
  Задача 3:
@@ -59,23 +58,18 @@ function isSomeTrue(array, fn) {
  - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
-  debugger;
-  var arr = [],
-    er = [];
+  var error = [];
   if ((typeof fn) != "function") {
     throw new Error(m2);
   }
   for (var i = 1; arguments.length > i; i++) {
-    arr.push(arguments[i]);
-  }
-  for (i = 0; arr.length > i; i++) {
     try {
-      fn(arr[i]);
+      fn(arguments[i]);
     } catch (e) {
-      er.push(arr[i]);
+      error.push(arguments[i]);
     }
   }
-  return er;
+  return error;
 }
 
 
@@ -87,7 +81,6 @@ function returnBadArguments(fn) {
  - dif - вычитает из number переданные аргументы
  - div - делит number на первый аргумент. Результат делится на следующий аргумент (если передан) и так далее
  - mul - умножает number на первый аргумент. Результат умножается на следующий аргумент (если передан) и так далее
-
  Количество передаваемых в методы аргументов заранее неизвестно
  Необходимо выбрасывать исключение в случаях:
  - number не является числом (с текстом "number is not a number")
@@ -100,8 +93,12 @@ function calculator(number = 0) {
   if (isNaN(number)) {
     throw new Error(m1);
   }
+  for (var i = 0; arguments.length > i; i++) {
+    if (typeof arguments[i] !== 'number') {
+      throw new Error(m1);
+    }
+  }
   function sumFunc() {
-    debugger;
     var result = number;
     for (var i = 0; i < arguments.length; i++) {
       result = result + arguments[i];
@@ -138,8 +135,6 @@ function calculator(number = 0) {
     }
     return result;
   }
-
-  debugger;
   return {
     sum: sumFunc,
     dif: difFunc,
