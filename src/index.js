@@ -18,9 +18,7 @@ function map(array, fn) {
   // debugger;
   var copy = [];
   for (var i = 0; array.length > i; i++) {
-
-    fn(array[i], [i], array, copy);
-    copy.push(Math.pow(array[i], 2));
+    copy.push(fn(array[i], [i], array, copy));
   }
   return copy;
 }
@@ -30,16 +28,15 @@ function map(array, fn) {
  Напишите аналог встроенного метода reduce для работы с массивами
  */
 function reduce(array, fn, initial) {
-  //debugger;
+  debugger;
   if (initial == undefined) {
-    var
-      i = 1,
+    var j = 1,
       sum = array[0];
   } else {
-    i = 0;
+    var j = 0;
     sum = initial;
   }
-  for (i; array.length > i; i++) {
+  for (var i = j; array.length > i; i++) {
     sum = fn(sum, array[i], i, array)
   }
   return sum;
@@ -51,7 +48,10 @@ function reduce(array, fn, initial) {
  Функция должна удалить указанное свойство из указанного объекта
  */
 function deleteProperty(obj, prop) {
-  delete obj[prop];
+  if (obj.hasOwnProperty(prop)) {
+    delete obj[prop];
+  }
+  return;
 }
 
 /*
