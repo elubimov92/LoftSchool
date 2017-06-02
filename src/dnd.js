@@ -23,6 +23,20 @@ let homeworkContainer = document.querySelector('#homework-container');
  * @return {Element}
  */
 function createDiv() {
+    debugger;
+  var div = document.createElement('div'),
+    color = '#',
+    arr = '0123456789ABCDEF'.split('');
+  for (var i = 0; i < 6; i++) {
+    color += arr[Math.floor(Math.random() * 15)];
+  }
+  div.style.width =  Math.random()*100 +'px';
+  div.style.height =  Math.random()*100 +'px';
+  div.style.top =  Math.random()*100 +'px';
+  div.style.left =  Math.random()*100 +'px';
+  div.style.background = color;
+  div.classList.add('draggable-div');
+  return div;
 }
 
 /**
