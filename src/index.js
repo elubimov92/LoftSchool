@@ -8,7 +8,7 @@
  * @param {function} fn - обработчик
  */
 function addListener(eventName, target, fn) {
-    target.addEventListener(eventName, fn);
+  target.addEventListener(eventName, fn);
 }
 
 /**
@@ -19,7 +19,7 @@ function addListener(eventName, target, fn) {
  * @param {function} fn - обработчик
  */
 function removeListener(eventName, target, fn) {
-    target.removeEventListener(eventName, fn);
+  target.removeEventListener(eventName, fn);
 }
 
 /**
@@ -29,9 +29,9 @@ function removeListener(eventName, target, fn) {
  * @param {Element} target - элемент, на который нужно добавить обработчик
  */
 function skipDefault(eventName, target) {
-    target.addEventListener(eventName, function (e) {
-        e.preventDefault();
-    });
+  target.addEventListener(eventName, function (e) {
+    e.preventDefault();
+  });
 }
 
 /**
@@ -40,9 +40,8 @@ function skipDefault(eventName, target) {
  * @param {Element} target - элемент, на который нужно добавить обработчик
  */
 function emulateClick(target) {
-    var event = new Event('click');
-        target.dispatchEvent(event);
-
+  var event = new Event('click');
+  target.dispatchEvent(event);
 }
 
 /**
@@ -53,14 +52,16 @@ function emulateClick(target) {
  * @param {function} fn - функция, которую нужно вызвать при клике на элемент BUTTON внутри target
  */
 function delegate(target, fn) {
-    debugger;
-    for(var i = 0; target.children.length > i; i++) {
-        if(target.children[i].localName == 'button') {
-            var event = target.children[i];
-        }
+  debugger;
+  target.addEventListener('click', function (e) {
+    var target = e.target;
+    if (target.localName != 'button') {
+      return;
     }
-    event.addEventListener('click', fn);
+    fn();
+  });
 }
+
 
 /**
  * *** Со звездочкой ***
@@ -72,19 +73,17 @@ function delegate(target, fn) {
  * @param {function} fn - обработчик
  */
 function once(target, fn) {
-    var event = function () {
-	    fn();
-	    target.removeEventListener('click',event);
-	};
-
-	target.addEventListener('click',event);
+  var event = function () {
+    fn();
+    target.removeEventListener('click', event);
+  };
+  target.addEventListener('click', event);
 }
-
 export {
-    addListener,
-    removeListener,
-    skipDefault,
-    emulateClick,
-    delegate,
-    once
+  addListener,
+  removeListener,
+  skipDefault,
+  emulateClick,
+  delegate,
+  once
 };
