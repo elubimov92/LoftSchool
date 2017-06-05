@@ -14,6 +14,7 @@ loaders.push({
 });
 
 module.exports = {
+
   entry: {
     main: './src/index.js',
     dnd: './src/dnd.js'
@@ -48,3 +49,39 @@ module.exports = {
     new CleanWebpackPlugin(['dist'])
   ]
 };
+
+    entry: {
+        main: './src/index.js',
+        dnd: './src/dnd.js'
+    },
+    output: {
+        filename: '[name].js',
+        path: path.resolve('dist')
+    },
+    devtool: 'source-map',
+    module: {
+        loaders
+    },
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true,
+            compress: {
+                drop_debugger: false
+            }
+        }),
+        new ExtractTextPlugin('styles.css'),
+        new HtmlPlugin({
+            title: 'Main Homework',
+            template: 'index.hbs',
+            chunks: ['main']
+        }),
+        new HtmlPlugin({
+            title: 'Div Drag And Drop',
+            template: 'dnd.hbs',
+            filename: 'dnd.html',
+            chunks: ['dnd']
+        }),
+        new CleanWebpackPlugin(['dist'])
+    ]
+};
+

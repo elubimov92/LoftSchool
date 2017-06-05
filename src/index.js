@@ -55,10 +55,10 @@ function delegate(target, fn) {
   debugger;
   target.addEventListener('click', function (e) {
     var target = e.target;
-    if (target.localName != 'button') {
-      return;
+    if (target.localName == 'button') {
+      fn();
     }
-    fn();
+    return;
   });
 }
 
