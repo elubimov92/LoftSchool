@@ -23,6 +23,7 @@ let homeworkContainer = document.querySelector('#homework-container');
  * @return {Element}
  */
 function createDiv() {
+
   var div = document.createElement('div'),
     color = '#',
     arr = '0123456789ABCDEF'.split('');
@@ -45,6 +46,13 @@ function createDiv() {
  */
 function addListeners(target) {
 
+  target.onmousedown = function(e) {
+
+    target.style.position = 'absolute';
+    moveAt(e);
+    target.style.zIndex = 9999;
+
+
   target.onmousedown = function (e) {
    // debugger;
     target.style.position = 'absolute';
@@ -55,15 +63,23 @@ function addListeners(target) {
       return false;
     };
 
+
     function moveAt(e) {
       target.style.left = e.pageX - target.offsetWidth / 2 + 'px';
       target.style.top = e.pageY - target.offsetHeight / 2 + 'px';
     }
 
+    document.onmousemove = function(e) {
+      moveAt(e);
+    }
+    target.onmouseup = function() {
+
+
     document.onmousemove = function (e) {
       moveAt(e);
     };
     target.onmouseup = function () {
+
       document.onmousemove = null;
       target.onmouseup = null;
     }
@@ -72,7 +88,11 @@ function addListeners(target) {
 
 let addDivButton = homeworkContainer.querySelector('#addDiv');
 
+
+addDivButton.addEventListener('click', function() {
+
 addDivButton.addEventListener('click', function () {
+
   // создать новый div
   let div = createDiv();
 
@@ -86,4 +106,8 @@ addDivButton.addEventListener('click', function () {
 
 export {
   createDiv
+
 };
+
+};
+
