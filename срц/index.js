@@ -10,9 +10,8 @@ function delayPromise(seconds) {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
       resolve();
-    },seconds*1000)
-
-  })
+    }, seconds * 1000)
+  });
 }
 
 /**
@@ -23,9 +22,27 @@ function delayPromise(seconds) {
  * @return {Promise<Array<{name: String}>>}
  */
 function loadAndSortTowns() {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json");
+    xhr.send();
+    xhr.addEventListener('load', function () {
+      var citi = JSON.parse(xhr.responseText);
+      citi.sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        return 0;
+      });
+      resolve(citi);
+    });
+  });
 }
 
 export {
-    delayPromise,
-    loadAndSortTowns
+  delayPromise,
+  loadAndSortTowns
 };
